@@ -58,6 +58,8 @@ async def on_message(message):
         await message.channel.send("뮥뮥")
     elif (message.content=="!me")&(str(message.channel)=="역할_요청"):
         await message.channel.send(message.author.mention)
+    elif (message.content=="!you")&(str(message.channel)=="역할_요청"):
+        await message.channel.send(client.user.mention)
 
 @client.event
 async def on_member_join(member):

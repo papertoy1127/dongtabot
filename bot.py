@@ -59,4 +59,4 @@ async def on_message(message):
 #    ment = self.mention
 #    await self.get_channel(697660178190958664).send("{has joined the server.")
 access_token=os.environ["BOT_TOKEN"]
-client.run("Njk3NzMxMjIwNTgyMTcwNjg2"+".Xo843A.LPIGCezkDENCwnljmLjf79H1NWY")
+client.run("Njk3NzMxMjIwNTgyMTcwNjg2.Xo872w"+".CmYnEna4_nmomI0Gtw_XwsUk4bQ")

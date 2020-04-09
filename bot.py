@@ -55,6 +55,12 @@ async def on_message(message):
         role = discord.utils.get(message.guild.roles, name="광리자")
         await message.author.remove_roles(role)
 
+@client.event
+async def on_member_join(member):
+    ex = '안녕하세요 {0.mention}님, !역할지급 명령어로 역할_요청 채널에 역할을 요청해주세요!'
+    channel = member.server.get_channel("가입")
+    await client.send_message(channel, ex.format(member))
+
 #@client.event
 #async def on_member_join(self):
 #    ment = self.mention

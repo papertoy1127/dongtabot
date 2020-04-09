@@ -1,5 +1,5 @@
 import discord
-import asyncio
+import os
 
 client=discord.Client()
 
@@ -57,5 +57,5 @@ async def on_message(message):
 #async def on_member_join(self):
 #    ment = self.mention
 #    await self.get_channel(697660178190958664).send("{has joined the server.")
-
-client.run('Njk3NzMxMjIwNTgyMTcwNjg2.Xo7i5A.-7W01kNn_ijX6gIPzIVhExsmjK4')
+access_token=os.environ["BOT_TOKEN"]
+client.run(access_token)

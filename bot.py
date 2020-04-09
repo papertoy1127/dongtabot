@@ -58,6 +58,7 @@ async def on_message(message):
         if message.content=="!MEE6 MEE6":
             role = discord.utils.get(message.guild.roles, name="MEE6")
             await message.author.add_roles(role)
+            await message.channel.send("뮥뮥")
 
 @client.event
 async def on_member_join(member):

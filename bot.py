@@ -4,17 +4,17 @@ import os
 
 client=discord.Client()
 
-@client.event
-async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+#@client.event
+#async def on_ready():
+#    print('Logged in as')
+#    print(client.user.name)
+#    print(client.user.id)
+#    print('------')
     
 @client.event
 async def on_message(message):
     await message.channel.send("test")
-    if message.author == client.user:
+    '''if message.author == client.user:
         return
     if (message.content.split()[0]=="!역할지급")&(str(message.channel)=="역할_요청"):
         if message.content=="!역할지급":
@@ -54,7 +54,7 @@ async def on_message(message):
     elif (message.content.split()[0]=="!광리자")&(str(message.channel)=="역할_요청"):
         role = discord.utils.get(message.guild.roles, name="광리자")
         await message.author.remove_roles(role)
-
+'''
 #@client.event
 #async def on_member_join(self):
 #    ment = self.mention

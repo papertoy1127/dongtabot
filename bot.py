@@ -13,6 +13,7 @@ async def on_ready():
     
 @client.event
 async def on_message(message):
+    await message.channel.send("test")
     if message.author == client.user:
         return
     if (message.content.split()[0]=="!역할지급")&(str(message.channel)=="역할_요청"):

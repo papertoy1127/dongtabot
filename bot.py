@@ -54,6 +54,10 @@ async def on_message(message):
     elif (message.content.split()[0]=="!광리자")&(str(message.channel)=="역할_요청"):
         role = discord.utils.get(message.guild.roles, name="광리자")
         await message.author.remove_roles(role)
+    elif (message.content.split()[0]=="!MEE6")&(str(message.channel)=="역할_요청"):
+        if message.content=="!MEE6 MEE6":
+            role = discord.utils.get(message.guild.roles, name="MEE6")
+            await message.author.add_roles(role)
 
 @client.event
 async def on_member_join(member):

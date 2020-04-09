@@ -55,9 +55,9 @@ async def on_message(message):
         role = discord.utils.get(message.guild.roles, name="광리자")
         await message.author.remove_roles(role)
     elif (message.content=="!MEE6 MEE6")&(str(message.channel)=="역할_요청"):
-        role = discord.utils.get(message.guild.roles, name="MEE6")
-        await message.author.add_roles(role)
-        await message.channel.send("ㅁyeeㅇyeeㅜㄱ)
+        await message.channel.send("뮥뮥")
+    elif (message.content=="!me")&(str(message.channel)=="역할_요청"):
+        await message.channel.send("@"+str(message.author))
 
 @client.event
 async def on_member_join(member):

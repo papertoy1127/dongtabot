@@ -50,13 +50,13 @@ async def on_message(message):
         elif message.content.split()[1]=="0도미드스핀의발견자":
             await message.channel.send("핫덕님 겁니다.")
         else:
-            await message.channel.send(message.content.split()[0]+" 역할을 찾을 수 없습니다. (일반인/연구원)")
+            await message.channel.send(message.content.split()[1]+" 역할을 찾을 수 없습니다. (일반인/연구원)")
     elif (message.content.split()[0]=="!광리자")&(str(message.channel)=="역할_요청"):
         role = discord.utils.get(message.guild.roles, name="광리자")
         await message.author.remove_roles(role)
     elif (message.content=="!MEE6 MEE6")&(str(message.channel)=="역할_요청"):
         role = discord.utils.get(message.guild.roles, name="MEE6")
-        await message.author.add_roles(role)
+        #await message.author.add_roles(role)
         await message.channel.send("뮥뮥")
 
 @client.event

@@ -60,7 +60,7 @@ async def on_message(message):
         if (message.content=="!me"):
             await message.channel.send(message.author.mention)
         else:
-            await message.channel.send(message.content.split(maxsplit=1)[1])
+            await message.channel.send(message.author.menton+message.content.split(maxsplit=1)[1])
     elif (message.content=="!you")&(str(message.channel)=="역할_요청"):
         await message.channel.send(client.user.mention)
 

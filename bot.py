@@ -60,7 +60,7 @@ async def on_message(message):
         await message.channel.send(message.author.roles)
     elif (message.content.split()[0]=="!you"):
         await message.delete()
-        await message.channel.send(str(message.author)+message.content.split(maxsplit=1)[1])
+        await message.channel.send(str(message.author)+": "+message.content.split(maxsplit=1)[1])
 
 @client.event
 async def on_member_join(member):

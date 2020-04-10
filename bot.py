@@ -59,7 +59,7 @@ async def on_message(message):
     elif (message.content.split()[0]=="!me"):
         await message.channel.send(message.author.mention)
     elif (message.content.split()[0]=="!you!):
-        #await message.delete()
+        await message.delete()
         await message.channel.send(message.content.split(maxsplit=1)[1])
 
 @client.event
@@ -69,4 +69,4 @@ async def on_member_join(member):
     await client.send_message(channel, ex.format(member))
 
 access_token=os.environ["BOT_TOKEN"]
-client.run("Njk3NzMxMjIwNTgyMTcwNjg2."+"Xo_bIg.mJ6UghnwfX_MRYPkzFK12onEG28")
+client.run("Njk3NzMxMjIwNTgyMTcwNjg2."+"Xo_hDg.2POs0psZFDSlYtr15Y67_gFn9jI")

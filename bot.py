@@ -56,6 +56,11 @@ async def on_message(message):
         await message.author.remove_roles(role)
     elif (message.content=="!MEE6 MEE6")&(str(message.channel)=="역할_요청"):
         await message.channel.send("뮥뮥")
+    elif (message.content.split()[0]=="!me"):
+        if (message.content=="!me"):
+            await message.channel.send(message.author.mention)
+        else:
+            await message.channel.send(message.content.split(maxsplit=1)[1])
     elif (message.content=="!you")&(str(message.channel)=="역할_요청"):
         await message.channel.send(client.user.mention)
 

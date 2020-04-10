@@ -59,7 +59,7 @@ async def on_message(message):
     elif (message.content.split()[0]=="!me"):
         await message.channel.send(message.author.mention)
     elif (message.content.split()[0]=="!you!):
-        await message.delete()
+        #await message.delete()
         await message.channel.send(message.content.split(maxsplit=1)[1])
 
 @client.event

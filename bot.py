@@ -57,7 +57,7 @@ async def on_message(message):
     elif (message.content=="!MEE6 MEE6")&(str(message.channel)=="역할_요청"):
         await message.channel.send("뮥뮥")
     elif (message.content.split()[0]=="!me"):
-        await message.channel.send(message.author.mention)
+        await message.channel.send(message.author.role)
     elif (message.content.split()[0]=="!you"):
         await message.delete()
         await message.channel.send(message.content.split(maxsplit=1)[1])

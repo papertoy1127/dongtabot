@@ -66,4 +66,4 @@ async def on_member_join(member):
     await client.send_message(channel, ex.format(member))
 
 access_token=os.environ["BOT_TOKEN"]
-client.run("Njk3OTkzODQwNzI3OTQ5MzMz.Xo_Z-w"+".12tByspz60XnMcocD3L7q-W_i5A")
+client.run("Njk3NzMxMjIwNTgyMTcwNjg2."+"Xo_bIg.mJ6UghnwfX_MRYPkzFK12onEG28")

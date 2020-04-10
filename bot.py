@@ -57,11 +57,14 @@ async def on_message(message):
     elif (message.content=="!MEE6 MEE6")&(str(message.channel)=="역할_요청"):
         await message.channel.send("뮥뮥")
     elif (message.content.split()[0]=="!me"):
-        await message.channel.send(str(message.author.roles))
+        await message.channel.send(str(message.author.mention))
     elif (message.content.split()[0]=="!you"):
-        await message.delete()
-        await message.channel.send(message.content.split(maxsplit=1)[1])
-
+        role = discord.utils.get(message.guild.roles, name="연구소장")
+            if role in message.author.roles:
+                await message.delete()
+                await message.channel.send(message.content.split(maxsplit=1)[1])
+            else:
+                await message.channel.send("관리자만 사용할 수 있는 명령어 입니다.")
 @client.event
 async def on_member_join(member):
     ex = '안녕하세요 {0.mention}님, !역할지급 명령어로 역할_요청 채널에 역할을 요청해주세요!'

@@ -70,9 +70,5 @@ async def on_member_join(member):
     channel = member.server.get_channel("가입")
     await client.send_message(channel, ex.format(member))
 
-#@client.event
-#async def on_member_join(self):
-#    ment = self.mention
-#    await self.get_channel(697660178190958664).send("{has joined the server.")
 access_token=os.environ["BOT_TOKEN"]
-client.run("Njk3NzMxMjIwNTgyMTcwNjg2.Xo_VGg"+".2-weFLa6w14ChoLvgC3IFbbI9UY") #access_token)
+client.run("access_token)

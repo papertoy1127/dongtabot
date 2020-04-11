@@ -106,10 +106,16 @@ async def on_message(message):
                            
             if check==0:
                 await message.channel.send("%s도는 현재 얼불춤에서 만들 수 없습니다." % (getAngle))
-    elif (message.content.split()[0]=="!sudo"):
+    elif (message.content.split()[0]=="!do"):
         role = discord.utils.get(message.guild.roles, name="연구소장")
         if role in message.author.roles:
-            eval(message.content)
+            eval(message.content.split(maxsplit=1)[1])
+        else:
+            await message.channel.send("관리자만 사용할 수 있는 명령어 입니다.")
+    elif (message.content.split()[0]=="!doa"):
+        role = discord.utils.get(message.guild.roles, name="연구소장")
+        if role in message.author.roles:
+            await eval(message.content.split(maxsplit=1)[1])
         else:
             await message.channel.send("관리자만 사용할 수 있는 명령어 입니다.")
 

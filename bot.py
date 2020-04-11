@@ -118,6 +118,20 @@ async def on_message(message):
             await eval(message.content.split(maxsplit=1)[1])
         else:
             await message.channel.send("관리자만 사용할 수 있는 명령어 입니다.")
+    elif (message.content.split()[0]=="!dodel"):
+        role = discord.utils.get(message.guild.roles, name="연구소장")
+        if role in message.author.roles:
+            await message.delete()
+            eval(message.content.split(maxsplit=1)[1])
+        else:
+            await message.channel.send("관리자만 사용할 수 있는 명령어 입니다.")
+    elif (message.content.split()[0]=="!doadel"):
+        role = discord.utils.get(message.guild.roles, name="연구소장")
+        if role in message.author.roles:
+            await message.delete()
+            await eval(message.content.split(maxsplit=1)[1])
+        else:
+            await message.channel.send("관리자만 사용할 수 있는 명령어 입니다.")
 
 access_token=os.environ["BOT_TOKEN"]
 client.run(access_token)

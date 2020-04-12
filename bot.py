@@ -132,7 +132,7 @@ async def on_message(message):
             await message.channel.send("!계산 <수식>")
         else:
             try:
-                result=str(eval(message.content.split(maxsplit=1)[1]))
+                result=str(eval(message.content.split()[1]))
                 await message.channel.send("```결과: "+result+"```")
             except NameError:
                 await message.channel.send("```잘못된 수식입니다.```")

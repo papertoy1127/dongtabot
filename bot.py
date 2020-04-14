@@ -4,6 +4,8 @@ import time
 import os
 from math import *
 
+def doesNothing(txt):
+    return txt
 client=discord.Client()
 
 @client.event

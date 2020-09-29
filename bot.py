@@ -1,82 +1,117 @@
 import discord
-import asyncio
+from discord.ext import commands, tasks
+from random import randrange
 
-class printMessage(Exception):
-    def __init__(self, msg):
-        super().__init__()
-        self.msg = msg
+bot = commands.Bot(command_prefix='!')
 
-    def __str__(self):
-        return self.msg
+#rooms = ["SE", "E1", "E2", "E3", "E4", "NE", "NE1", "NE2", "MIDDLE", "SE1", "SE2", "SE_LAST", "END", "ERROR", "N1", "N2", "N3", "N4", "NW", "NW1", "NW2", "MIDDLE", "ERROR", "W1", "W2", "W3", "W4", "SW", "S1", "S2", "S3", "S4", "SE_LAST", "ERROR", "SW1", "SW2", "SW"]
+rooms = ["SE", "E1", "E2", "E3", "E4", "NE", "N1", "N2", "N3", "N4", "NW", "W1", "W2", "W3", "W4", "SW", "S1", "S2", "S3", "S4", "SE_LAST", "SE_LAST", "SE_LAST", "SE_LAST", "SE_LAST", "NE1", "NE2", "MIDDLE", "SW1", "SW2", "SW", "S1", "S2", "S3", "S4", "NW1", "NW2", "MIDDLE", "SE1", "SE2", "SE_LAST", "SE_LAST", "SE_LAST", "SE_LAST", "SE_LAST"]
 
-client=discord.Client()
+answers = {
+    "SE": "START", 
+    "E1": "추석", 
+    "E2": "26", 
+    "E3": "7", 
+    "E4": "효모", 
+    "NE": "759405941057388594", 
+    "NE1": "☢️", 
+    "NE2": "🍗", 
+    "MIDDLE": "😈", 
+    "SE1": "🇹🇷", 
+    "SE2": "105", 
+    "SE_LAST": "더도 말고 덜도 말고 한가위만 같아라", 
+    "N1": "v", 
+    "N2": "105", 
+    "N3": "🍁", 
+    "N4": "한가위", 
+    "NW": "당신의 노고에 언제나 감사를", 
+    "NW1": "↘️", 
+    "NW2": "paperpptxyzwrdawngmdmc01", 
+    "W1": "10월 4일", 
+    "W2": "2018년 1월 31일", 
+    "W3": "yellow", 
+    "W4": "cage", 
+    "SW": "거품", 
+    "S1": "Rammasun", 
+    "S2": ":", 
+    "S3": "WIP", 
+    "S4": "♌", 
+    "SW1": "🤔", 
+    "SW2": "super"}
+DG = {
+    1: '**도**가',
+    2: '**개**가',
+    3: '**걸**이',
+    4: '**윷**이',
+    5: '**모**가'
+}
 
-@client.event
+players = dict()
+
+def appender(ref, ap):
+    ref[0].append(ap)
+
+def dictor(ref, key, value):
+    ref[0][key] = value
+
+def clear(ref):
+    ref[0] = dict()
+    return "초기화 되었습니다."
+
+@bot.event
 async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+    print("---연결 성공---")
+    print("봇 이름: {bot.user.name}")
+    print("ID: {bot.user.id}")
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    if (message.content.split()[0]=="!각도계산")&(str(message.channel)=="각도계산"):
-        text = message.content.split()[1]
-        print(text)
+@bot.command()
+async def edit(ctx, arg):
+    await ctx.send(arg + " >> " + str(eval(arg)))
+
+@bot.command()
+async def check(ctx, *args):
+    global players
+    Server = bot.get_guild(759384886174810122)
+    if isinstance(ctx.channel, discord.channel.DMChannel):
         try:
-            for i in text.split('/'):
-                if i.isnumeric() == False:
-                    raise printMessage('잘못된 각도입니다. D1')
-            if len(text.split('/')) > 2:
-                raise printMessage('잘못된 각도입니다. D2')
-            if len(text.split('/')) == 2:
-                if text.split('/')[1] != '7':
-                    raise printMessage('잘못된 각도입니다. (분모를 7로 해주세요.)')
-            if '/' in text:
-                toGet = int(round(eval(text) * 7))
-                heptaAngle = True
+            if players[ctx.author]:
+                pass
+        except KeyError:
+            players[ctx.author] = []
+        ctx.send(players[ctx.author])
+        try:
+            qus = str(args[0]).upper()
+            ans =  (' '.join(args[1:len(args)])).upper()
+        except IndexError:
+            embed = discord.Embed(title = "", description="명령어가 완전하지 않습니다\n(올바른 사용법: `!check <문제> <답>`)", color=0x999999)
+            await ctx.send("", embed = embed)
+            return
+        try:
+            #await ctx.send("```"+answers[qus].upper()+ans+"```")
+            if qus in players[ctx.author]:
+                embed = discord.Embed(title = "", description="이미 푼 문제입니다.", color=0x999999)
+                await ctx.send("", embed = embed)
+                return
+            if answers[qus].upper() == ans:
+                await ctx.send("정답!")
+                appender([players[ctx.author]], qus)
+                author = Server.get_member(ctx.author.id)
+                tmp = randrange(1,6)
+                roleName = rooms[(rooms.index(qus)+tmp)]
+                role = discord.utils.get(Server.roles, name=roleName)
+                await author.add_roles(role)
+                embed = discord.Embed(title = "", description="%s 나와 %s 칸으로 이동했습니다." % (DG[tmp], role), color=0x999999)
+                await ctx.send("", embed = embed)
+ 
             else:
-                toGet = int(text)
-                heptaAngle = False
-            angles=(0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300)
-            check=[]
-            sendMsg="```\n"
-            for preAngle in angles:
-                for latAngle in angles:
-                    for penta in range(5):
-                        if heptaAngle == False:
-                            angle = (preAngle + penta * 108 - latAngle) % 360
-                            if angle == toGet:
-                                if penta == 0:
-                                    check.append("{}° - {}° -> {}°".format(preAngle, latAngle, toGet))
-                                else:
-                                    check.append("{}° + 108 × {}° - {}° -> {}°".format(preAngle, penta, latAngle, toGet))
-                        else:
-                            for hepta in range(7): # 부동소수점 오차를 줄이기 위해 *7
-                                angle = (preAngle * 7 + penta * 108 * 7 + hepta * 900 - latAngle * 7) % (360 * 7)
-                                if angle == toGet:
-                                    if penta == 0:
-                                        check.append("{}° + 900/7 × {}° - {}° -> {}°".format(preAngle, hepta, latAngle, str(toGet) + '/7'))
-                                    else:
-                                        check.append("{}° + 108 × {}° + 900/7 × {}° - {}° -> {}°".format(preAngle, penta, hepta, latAngle, str(toGet) + '/7'))
-            if check:
-                raise printMessage(check)
-            else:
-                if heptaAngle == False:
-                    raise printMessage(str(toGet) + '도는 현재 만들 수 없습니다.')
-                else:
-                    raise printMessage(str(toGet) + '/7도는 현재 만들 수 없습니다.')
-        except printMessage as m:
-            if type(m.msg) == list:
-                msg = '```\n'
-                for i in m.msg:
-                    msg += i + '\n'
-                msg += '```'
-                await message.channel.send(msg)
-            else:
-                await message.channel.send('```' + str(m.msg) + '```')
+                await ctx.send("오답!")
+        except KeyError as E:
+            embed = discord.Embed(title = "", description="%s는 없는 문제입니다" % E, color=0x999999)
+            await ctx.send("", embed = embed)
+    else:
+        embed = discord.Embed(title = "", description="이 명령어는 DM으로만 사용할 수 있습니다", color=0x999999)
+        await ctx.send("", embed = embed)
 
-access_token='Njk3NzMxMjIwNTgyMTcwNjg2.'+'Xsz50g.OxHqtjXl3ZddMp6Iz9drMN7oEhA' # os.environ["BOT_TOKEN"]
-client.run(access_token)
+token = "NzMxMDUyNzIzMjQzNDUwMzY5.Xwgb5w."+"bUurs0v4GiziGZw5preirNeEIEI"
+
+bot.run(token)
